@@ -17,10 +17,26 @@
     </script>
     <script src="http://www.google-analytics.com/analytics.js" async></script>
 
-    <link href="css/style-minify.css" rel="stylesheet">
+    <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
+
+    <link href="css/style.css" rel="stylesheet">
     <link href="css/print.css" rel="stylesheet" media="print">
 
-    <script src="js/perfmatters.js" async></script>
+    <!-- <script src="js/perfmatters.js" async></script> -->
+    <script type="text/javascript">
+      function logCRP() {
+        var t = window.performance.timing,
+          dcl = t.domContentLoadedEventStart - t.domLoading,
+          complete = t.domComplete - t.domLoading;
+        var stats = document.getElementById("crp-stats");
+        stats.textContent = 'DCL: ' + dcl + 'ms, onload: ' + complete + 'ms';
+      }
+
+      window.addEventListener("load", function(event) {
+        logCRP();
+      });
+    </script>
   </head>
 
   <body>
