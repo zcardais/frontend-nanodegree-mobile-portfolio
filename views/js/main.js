@@ -464,25 +464,23 @@ var resizePizzas = function(size) {
         console.log("bug in sizeSwitcher");
 
     }
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-
+    // Subbed all instances of querySelectorAll with getElementsByClassName
+    var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
     for (var i = 0; i < randomPizzas.length; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
   }
-
   // Iterates through pizza elements on the page and changes their widths
-  // Hint 1: Replace querySelectorAll with getElementsByClassName
-  // Hint 2: Find out the variables with constant values and try to get them out of the loop. like var dx and var newwidth, below.
+  // TODO: Find out the variables with constant values and try to get them out of the loop. like var dx and var newwidth, below.
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
+    for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
       // var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
       // var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+      document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
     }
   }
-  var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[0], size);
-  var newwidth = (document.querySelectorAll(".randomPizzaContainer")[0].offsetWidth + dx) + 'px';
+  var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[0], size);
+  var newwidth = (document.getElementsByClassName("randomPizzaContainer")[0].offsetWidth + dx) + 'px';
 
   changePizzaSizes(size);
 
@@ -550,12 +548,19 @@ function updatePositions() {
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
 
-// Generates the sliding pizzas when the page loads.
-// Hint 3: calculate the dimensions of the window and number of total pizza can be according to it.
+// Generates the sliding pizzas when the page loads. Reworked to calculate the dimensions of the window and number of total pizzas based on screen height and screen width.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 32; i++) {
+  var pizzaColumns = Math.ceil(window.innerWidth / s);
+    console.log(pizzaColumns);
+  var pizzaRows = Math.ceil(window.innerHeight / s);
+    console.log(pizzaRows);
+  var numberOfPizzas = pizzaColumns * pizzaRows;
+    console.log(numberOfPizzas);
+    cols = pizzaColumns;
+
+  for (var i = 0; i < numberOfPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
