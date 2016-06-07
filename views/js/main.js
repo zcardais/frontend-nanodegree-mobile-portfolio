@@ -558,7 +558,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(pizzaRows);
   var numberOfPizzas = pizzaColumns * pizzaRows;
     console.log(numberOfPizzas);
-    cols = pizzaColumns;
 
   for (var i = 0; i < numberOfPizzas; i++) {
     var elem = document.createElement('img');
